@@ -5,16 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <form action="/recepies" method="post">
+<body>   
+    <form action="/filter" method="post">
         <label>Dosha</label>
-        <select name="dosha">
+        <select id="doshaSelect" name="dosha">
+            <option>All</option>
             <option>Vata</option>
             <option>Pitta</option>
             <option>Kapha</option>
         </select>
-        <input type="text" name="name" placeholder="Name"/>
+
+        <label>Type</label>
+        <select id="typeSelect" name="type">
+            <option>All</option>
+            <option>Meal</option>
+            <option>Beverage</option>
+        </select>
+
         <button type="submit">Submit</button>
     </form>
+
+    <% if (locals.filter) { %>
+        <p id="dosha" style="display: none;"><%= filter.dosha %></p>
+        <p id="type" style="display: none;"><%= filter.type %></p>
+
+        <script>
+            document.getElementById('doshaSelect').value = document.getElementById('dosha').innerText
+            document.getElementById('typeSelect').value = document.getElementById('type').innerText
+        </script>
+    <% } %>
+
+    <ul>
+        <% recepies.forEach(recepie => { %>
+            <li>
+                <p><%= recepie.name %></p>
+                <p><%= recepie.dosha %></p>
+                <p><%= recepie.type %></p>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html>
